@@ -1,0 +1,92 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ClapTrap.cpp                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asimon <asimon@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/29 11:04:30 by asimon            #+#    #+#             */
+/*   Updated: 2022/08/02 17:53:40 by asimon           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ClapTrap.hpp"
+
+ClapTrap::ClapTrap(std::string name): 
+_name(name), _hitPts(10), _energyPts(10), _attackDmg(0)
+{
+	std::cout << "Hey! welcome on pandora, I'm " << this->_name << std::endl;
+	std::cout << std::endl;
+	this->printData();
+	return ;
+}
+
+ClapTrap::ClapTrap(void):
+_name("Jack"), _hitPts(10), _energyPts(10), _attackDmg(0)
+{
+	std::cout << "Hey! welcome on pandora, I'm " << this->_name << " | Default" << std::endl;
+	std::cout << std::endl;
+	this->printData();
+	return ;
+}
+
+ClapTrap::ClapTrap(ClapTrap const &old):
+_name(old._name), _hitPts(old._hitPts), _energyPts(old._energyPts), _attackDmg(old._attackDmg)
+{
+	std::cout << "Hey! welcome on pandora, I'm " << this->_name << " | Copy" << std::endl;
+	std::cout << std::endl;
+	this->printData();
+	return ;
+}
+
+ClapTrap::~ClapTrap()
+{
+	std::cout << "This is the end of the story of our brave " << this->_name << " | Destructor" << std::endl;
+	return ;
+}
+
+void	ClapTrap::attack(const std::string &target)
+{
+	if (this->_energyPts != 0 && this->_hitPts > 0)
+	{
+		std::cout << "WAIT! ClapTrap(" << this->_name << ") comming for a hit! " << target << " has taken " << this->_attackDmg << " dmg" << std::endl;
+		this->_energyPts--;
+	}
+	else
+		std::cout << "Let this poor " << this->_name << " rest for god damn sake!" << std::endl;
+	return ;
+}
+
+void	ClapTrap::takeDamage(unsigned int amount)
+{
+	if (this->_hitPts > 0)
+	{
+		std::cout << "ClapTrap aka: " << this->_name << " has taken " << amount << " dmg" << std::endl;
+		this->_hitPts -= amount;
+	}
+	else
+		std::cout << "Man " << this->_name << " is allready dead chill!" << std::endl;
+	return ;
+}
+
+void	ClapTrap::beRepaired(unsigned int amount)
+{
+	if (this->_energyPts != 0 && this->_hitPts > 0)
+	{
+		std::cout << "ClapTrap aka: " << this->_name << " momantanly repairing... + " << amount << "HP!" << std::endl;	
+		this->_hitPts += amount;
+		this->_energyPts--;
+	}
+	else
+		std::cout << "I don't think Claptrap aka: " << this->_name <<  " is able to do that right now" << std::endl;
+	return ;
+}
+
+void			ClapTrap::printData() const
+{
+	std::cout << "Name: " << this->_name << std::endl;
+	std::cout << "HP: " << this->_hitPts << std::endl;
+	std::cout << "Energy: " << this->_energyPts << std::endl;
+	std::cout << "DMG: " << this->_attackDmg << std::endl;
+	std::cout << std::endl;
+}
